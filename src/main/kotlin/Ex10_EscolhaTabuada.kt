@@ -20,7 +20,7 @@ fun main (){
     do {
         println("Informe o número da tabudada desejado:")
         numTab = readln().toInt()
-        if (numTab == 0) println("ATENÇÃO! Toda tabuada de 0 tem valor 0. Escolha outro valor.")
+        if (numTab == 0) println("ATENÇÃO! Toda tabuada de 0 tem resultado 0. Escolha outro valor.")
     } while(numTab == 0)
     println("## Tabuada do $numTab ##")
     for (i in 1..10){
