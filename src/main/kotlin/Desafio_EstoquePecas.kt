@@ -13,16 +13,18 @@ val menuPrincipal = """
     0......FECHAR SISTEMA
 """.trimIndent()
 
-val itensEstoque: MutableList<String> = mutableListOf()
+val itensEstoque = mutableListOf<Triple<Int, String, Int>>()
 var idItem = 1
-var produto = ""
 
 fun main (){
     controleEstoque()
+    println("---- Programa Encerrado ----")
 }
 
 fun controleEstoque() {
-    println("Bem-vindo à oficina!")
+    println("------------------------------")
+    println("SISTEMA DE CONTROLE DE ESTOQUE")
+    println("------------------------------")
     do {
         println(menuPrincipal)
 
@@ -31,11 +33,11 @@ fun controleEstoque() {
         when (menu) {
             ADDITEM -> {
                 println("Digite o produto a ser adicionado:")
-                produto = readln()
+                val produto = readln()
                 println("Digite a quantidade do produto que está sendo adicionado:")
-                qtdeProduto = readln().toInt()
+                val qtdeProduto = readln().toInt()
+                itensEstoque.add(Triple(idItem, produto, qtdeProduto))
                 idItem++
-
             }
             EDITARITEM -> {
                 if (itensEstoque.isEmpty()){
@@ -51,27 +53,46 @@ fun controleEstoque() {
                     when (alteraProduto){
                         "1" -> {
                             println("Informe o novo nome para o produto de código #0$codItem:")
+                            val novoProduto = readln()
+                            itensEstoque[codItem - 1] = itensEstoque [codItem - 1].copy(second = novoProduto)
                         }
                         "2" -> {
                             println("Informe a nova quantidade para o produto de código #0$codItem:")
+                            val novaQtde = readln().toInt()
+                            itensEstoque[codItem - 1] = itensEstoque [codItem - 1].copy(third = novaQtde)
                         }
                         "3" -> {
                             println("Informe o novo nome para o produto de código #0$codItem:")
+                            val novoProduto = readln()
+                            itensEstoque[codItem - 1] = itensEstoque [codItem - 1].copy(second = novoProduto)
+                            println("Informe a nova quantidade para o produto de código #0$codItem:")
+                            val novaQtde = readln().toInt()
+                            itensEstoque[codItem - 1] = itensEstoque [codItem - 1].copy(third = novaQtde)
                         }
                     }
                 }
             }
-//            EXIBIRITENS -> {
-//                println("Item será exibido")
-//            }
+            EXIBIRITENS -> {
+                val semEstoque = itensEstoque.filter { it.third > 0 }
+                println("------------------------")
+                println("ID | Item | Quantidade")
+                println("------------------------")
+                semEstoque.forEach {
+                    println("#0${it.first} | ${it.second} | ${it.third}")
+                }
+                println("------------------------\n")
+            }
             EXIBIRTODOS -> {
                 if (itensEstoque.isEmpty()){
                     println("Não há itens no estoque.")
                 } else {
-                    println("ID|Item|Quantidade")
+                    println("------------------------")
+                    println("ID | Item | Quantidade")
+                    println("------------------------")
                     itensEstoque.forEach {
-                        println(it)
+                        println("#0${it.first} | ${it.second} | ${it.third}")
                     }
+                    println("------------------------\n")
                 }
             }
             else -> {
