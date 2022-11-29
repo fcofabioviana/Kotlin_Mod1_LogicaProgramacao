@@ -121,9 +121,7 @@ fun ePadoca() {
     } while (categoria != FINALIZAR)
 }
 
-fun selecionaProduto(
-    menuSelecionado: String, produtos: List<Pair<String, Double>>
-) {
+fun selecionaProduto(menuSelecionado: String, produtos: List<Pair<String, Double>>) {
     do {
         println(menuSelecionado)
         val produtoSelecionado = readln().toInt() // valor atual -> 1 (corresponde ao pao frances)
